@@ -11,5 +11,8 @@
 
     <artifactId>stats</artifactId>
     <packaging>pom</packaging>
+    <modules>
+        <module>stats-dto</module>
+    </modules>
 
 </project>
