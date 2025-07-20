@@ -2,11 +2,13 @@ package ru.practicum.category.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
 /**
  * DTO used for creating a new category.
@@ -20,9 +22,10 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class CategoryDtoNew {
     @NotBlank(message = "Название категории обязательно.")
     @Size(min = 1, max = 50,
             message = "Ограничение длины названия категории. Не более 50 символов и не менее 1 символа.")
-    private String name;
+    String name;
 }
