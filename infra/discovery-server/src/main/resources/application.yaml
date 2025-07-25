@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: discovery-server
+
+server:
+  port: 8761
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+    eurekaServerDNSName: null
+    useDnsForFetchingServiceUrls: false
+  server:
+    renewalPercentThreshold: 0.5  # Уменьшаем порог продлений до 50%
+    renewalThresholdUpdateIntervalMs: 10000 # Обновляем порог каждые 10 секунд
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
