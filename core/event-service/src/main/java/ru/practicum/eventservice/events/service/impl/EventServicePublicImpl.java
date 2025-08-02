@@ -50,7 +50,7 @@ public class EventServicePublicImpl extends BaseEventService implements EventSer
         EventFullDto event = eventRepository.findById(eventId)
                 .map(eventMapper::toEventFullDto)
                 .filter(e -> e.getState() == EventState.PUBLISHED)
-                .orElseThrow(() -> new NotFoundException("Событие с ID=" + eventId + " не найдено"));
+                .orElseThrow(() -> new NotFoundException(String.format("Событие с id = %s не найдено", eventId)));
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime start = now.minusYears(TIME_BEFORE);
         statRestClient.getStats(start, now, List.of("/events/" + eventId), true)

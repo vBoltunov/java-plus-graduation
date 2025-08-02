@@ -47,7 +47,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
             subscriptionDto.setSubscriber(userFeignClient.getUserShortById(subscriberId));
             subscriptionDto.setSubscribedTo(userFeignClient.getUserShortById(subscribedToId));
         } catch (NoSuchElementException e) {
-            throw new NotFoundException("Не найден пользователь с id " + subscribedToId);
+            throw new NotFoundException(String.format("Пользователь с id = %s не найден", subscribedToId));
         }
 
         return subscriptionDto;

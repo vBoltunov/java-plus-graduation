@@ -15,8 +15,8 @@ import ru.practicum.interaction.dto.event.requests.UpdateEventAdminRequest;
 
 import java.util.List;
 
-import static ru.practicum.interaction.util.PathConstants.ADMIN_EVENTS;
-import static ru.practicum.interaction.util.PathConstants.EVENT_ID;
+import static ru.practicum.interaction.util.ConstantsUtil.ADMIN_EVENTS;
+import static ru.practicum.interaction.util.ConstantsUtil.EVENT_ID;
 
 @Slf4j
 @RestController

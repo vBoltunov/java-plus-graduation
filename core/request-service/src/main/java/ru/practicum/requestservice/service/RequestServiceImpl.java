@@ -85,7 +85,7 @@ public class RequestServiceImpl implements RequestService {
         checkUserExists(userId);
 
         Request request = requestRepository.findById(requestId)
-                .orElseThrow(() -> new NotFoundException("Запрос с ID=" + requestId + " не найден"));
+                .orElseThrow(() -> new NotFoundException(String.format("Запрос с id = %s не найден", requestId)));
 
         if (!userId.equals(request.getRequesterId())) {
             throw new ForbiddenOperationException("Отменять запрос может только его автор");
@@ -216,7 +216,7 @@ public class RequestServiceImpl implements RequestService {
         try {
             return userFeignClient.getUserShortById(userId);
         } catch (FeignException.NotFound e) {
-            throw new NotFoundException("Пользователь с ID=" + userId + " не найден");
+            throw new NotFoundException(String.format("Пользователь с id = %s не найден", userId));
         }
     }
 
@@ -224,7 +224,7 @@ public class RequestServiceImpl implements RequestService {
         try {
             return eventFeignClient.getEventById(eventId);
         } catch (FeignException.NotFound e) {
-            throw new NotFoundException("Событие с ID=" + eventId + " не найдено");
+            throw new NotFoundException(String.format("Событие с id = %s не найдено", eventId));
         }
     }
 
@@ -232,7 +232,7 @@ public class RequestServiceImpl implements RequestService {
         try {
             userFeignClient.getUserShortById(userId);
         } catch (FeignException.NotFound e) {
-            throw new NotFoundException("Пользователь с ID=" + userId + " не найден");
+            throw new NotFoundException(String.format("Пользователь с id = %s не найден", userId));
         }
     }
 

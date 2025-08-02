@@ -52,7 +52,7 @@ public class EventServiceAdminImpl extends BaseEventService implements EventServ
     @Transactional
     public EventFullDto updateEventById(Long eventId, UpdateEventAdminRequest dto) {
         Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new NotFoundException("Событие с ID=" + eventId + " не найдено"));
+                .orElseThrow(() -> new NotFoundException(String.format("Событие с id = %s не найдено", eventId)));
         if (event.getState().equals(EventState.PUBLISHED) || event.getState().equals(EventState.CANCELED)) {
             throw new ConflictException("Админ может обновлять только события в состоянии PENDING");
         }

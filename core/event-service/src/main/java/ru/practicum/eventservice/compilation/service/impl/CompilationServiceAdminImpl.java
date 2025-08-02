@@ -48,7 +48,7 @@ public class CompilationServiceAdminImpl implements CompilationServiceAdmin {
     @Transactional
     public CompilationDtoResponse updateCompilationAdmin(Long compId, CompilationDtoUpdate compilationDtoUpdate) {
         Compilation compilation = compilationRepository.findById(compId)
-                .orElseThrow(() -> new NotFoundException("Подборка с ID=" + compId + " не найдена"));
+                .orElseThrow(() -> new NotFoundException(String.format("Подборка с id = %s не найдена", compId)));
 
         List<Event> events = eventRepository.findAllByIdIn(compilationDtoUpdate.getEvents());
 

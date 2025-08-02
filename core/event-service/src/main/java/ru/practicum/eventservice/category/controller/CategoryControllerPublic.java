@@ -17,8 +17,8 @@ import ru.practicum.interaction.dto.event.category.CategoryDto;
 
 import java.util.List;
 
-import static ru.practicum.interaction.util.PathConstants.CATEGORIES;
-import static ru.practicum.interaction.util.PathConstants.CATEGORY_ID;
+import static ru.practicum.interaction.util.ConstantsUtil.CATEGORIES;
+import static ru.practicum.interaction.util.ConstantsUtil.CATEGORY_ID;
 
 @Validated
 @RestController

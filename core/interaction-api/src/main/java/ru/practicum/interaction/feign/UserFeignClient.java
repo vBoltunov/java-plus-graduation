@@ -14,10 +14,10 @@ import ru.practicum.interaction.dto.user.UserShortDto;
 import java.util.List;
 import java.util.Map;
 
-import static ru.practicum.interaction.util.PathConstants.ADMIN_USERS;
-import static ru.practicum.interaction.util.PathConstants.USER_ID;
-import static ru.practicum.interaction.util.PathConstants.USER_MAPPED;
-import static ru.practicum.interaction.util.PathConstants.USER_SHORT_DTO;
+import static ru.practicum.interaction.util.ConstantsUtil.ADMIN_USERS;
+import static ru.practicum.interaction.util.ConstantsUtil.USER_ID;
+import static ru.practicum.interaction.util.ConstantsUtil.USER_MAPPED;
+import static ru.practicum.interaction.util.ConstantsUtil.USER_SHORT_DTO;
 
 @FeignClient(name = "user-service", path = ADMIN_USERS)
 public interface UserFeignClient {

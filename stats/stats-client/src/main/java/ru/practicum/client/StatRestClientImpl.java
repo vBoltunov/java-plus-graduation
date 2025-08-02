@@ -11,12 +11,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 
+import static ru.practicum.util.ConstantsUtil.DATE_TIME_PATTERN;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class StatRestClientImpl implements StatRestClient {
     private final ru.practicum.client.StatsFeignClient statsFeignClient;
-    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
 
     public void addHit(HitDto hitDto) {
         log.info("Запрос на добавление статистики");

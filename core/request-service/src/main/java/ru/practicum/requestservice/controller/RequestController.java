@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
-import static ru.practicum.interaction.util.PathConstants.COUNT_EVENT_STATUS;
-import static ru.practicum.interaction.util.PathConstants.REQUESTS;
-import static ru.practicum.interaction.util.PathConstants.REQUEST_CONFIRMED;
+import static ru.practicum.interaction.util.ConstantsUtil.COUNT_EVENT_STATUS;
+import static ru.practicum.interaction.util.ConstantsUtil.REQUESTS;
+import static ru.practicum.interaction.util.ConstantsUtil.REQUEST_CONFIRMED;
 
 @RestController
 @RequiredArgsConstructor

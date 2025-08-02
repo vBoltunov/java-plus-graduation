@@ -12,6 +12,8 @@ import ru.practicum.interaction.dto.event.LocationDto;
 
 import java.time.LocalDateTime;
 
+import static ru.practicum.interaction.util.ConstantsUtil.DATE_TIME_PATTERN;
+
 /**
  * Base request DTO for updating event properties.
  *
@@ -39,7 +41,7 @@ public class UpdateEventRequest {
     @Size(min = 20, max = 7000)
     String description;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_TIME_PATTERN)
     LocalDateTime eventDate;
 
     LocationDto location;

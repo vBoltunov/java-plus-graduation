@@ -17,8 +17,8 @@ import ru.practicum.interaction.dto.event.compilation.CompilationDtoResponse;
 
 import java.util.List;
 
-import static ru.practicum.interaction.util.PathConstants.COMPILATIONS;
-import static ru.practicum.interaction.util.PathConstants.COMPILATION_ID;
+import static ru.practicum.interaction.util.ConstantsUtil.COMPILATIONS;
+import static ru.practicum.interaction.util.ConstantsUtil.COMPILATION_ID;
 
 @RequestMapping(COMPILATIONS)
 @RestController

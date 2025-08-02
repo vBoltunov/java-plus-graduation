@@ -9,6 +9,8 @@ import ru.practicum.interaction.dto.user.UserShortDto;
 
 import java.time.LocalDateTime;
 
+import static ru.practicum.interaction.util.ConstantsUtil.DATE_TIME_PATTERN;
+
 
 /**
  * DTO representing brief information about an event.
@@ -31,7 +33,7 @@ public class EventShortDto implements EventDto {
     String annotation;
     boolean paid;
     String title;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_TIME_PATTERN)
     LocalDateTime eventDate;
     CategoryDto category;
     UserShortDto initiator;

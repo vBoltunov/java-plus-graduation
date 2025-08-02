@@ -29,7 +29,7 @@ public class EventServiceFeignImpl extends BaseEventService implements EventServ
     @Override
     public EventFullDto getEventById(Long eventId) {
         Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new NotFoundException("Событие с ID=" + eventId + " не найдено"));
+                .orElseThrow(() -> new NotFoundException(String.format("Событие с id = %s не найдено", eventId)));
         EventFullDto eventFullDto = eventMapper.toEventFullDto(event);
         eventFullDto.setInitiator(userFeignClient.getUserShortById(event.getInitiatorId()));
         log.info("Получено событие по ID {}", eventId);
@@ -40,7 +40,8 @@ public class EventServiceFeignImpl extends BaseEventService implements EventServ
     public EventFullDto getEventByUserId(Long eventId, Long userId) {
         Event event = eventRepository.findByIdAndInitiatorId(eventId, userId);
         if (event == null) {
-            throw new NotFoundException("Событие с ID=" + eventId + " не найдено для пользователя " + userId);
+            throw new NotFoundException(String.format("Событие с id = %s не найдено для пользователя с id = %s",
+                    eventId, userId));
         }
         EventFullDto eventFullDto = eventMapper.toEventFullDto(event);
         eventFullDto.setInitiator(userFeignClient.getUserShortById(userId));

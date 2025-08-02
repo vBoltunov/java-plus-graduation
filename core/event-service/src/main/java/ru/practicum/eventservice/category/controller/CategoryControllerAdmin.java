@@ -18,8 +18,8 @@ import ru.practicum.eventservice.category.service.CategoryServiceAdmin;
 import ru.practicum.interaction.dto.event.category.CategoryDto;
 import ru.practicum.interaction.dto.event.category.CategoryDtoNew;
 
-import static ru.practicum.interaction.util.PathConstants.ADMIN_CATEGORIES;
-import static ru.practicum.interaction.util.PathConstants.CATEGORY_ID;
+import static ru.practicum.interaction.util.ConstantsUtil.ADMIN_CATEGORIES;
+import static ru.practicum.interaction.util.ConstantsUtil.CATEGORY_ID;
 
 @Validated
 @RestController

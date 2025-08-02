@@ -19,8 +19,8 @@ import ru.practicum.interaction.dto.event.compilation.CompilationDtoRequest;
 import ru.practicum.interaction.dto.event.compilation.CompilationDtoResponse;
 import ru.practicum.interaction.dto.event.compilation.CompilationDtoUpdate;
 
-import static ru.practicum.interaction.util.PathConstants.ADMIN_COMPILATIONS;
-import static ru.practicum.interaction.util.PathConstants.COMPILATION_ID;
+import static ru.practicum.interaction.util.ConstantsUtil.ADMIN_COMPILATIONS;
+import static ru.practicum.interaction.util.ConstantsUtil.COMPILATION_ID;
 
 @Validated
 @RestController

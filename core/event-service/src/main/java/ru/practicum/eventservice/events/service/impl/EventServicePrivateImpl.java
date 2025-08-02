@@ -49,10 +49,11 @@ public class EventServicePrivateImpl extends BaseEventService implements EventSe
     @Override
     public EventFullDto getEvent(Long userId, Long eventId) {
         Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new NotFoundException("Событие с ID=" + eventId + " не найдено"));
+                .orElseThrow(() -> new NotFoundException(String.format("Событие с id = %s не найдено", eventId)));
         UserShortDto initiator = userFeignClient.getUserShortById(event.getInitiatorId());
         if (!initiator.getId().equals(userId)) {
-            throw new ConflictException("Пользователь " + userId + " не является владельцем события " + eventId);
+            throw new ConflictException(String.format("Пользователь с id = %s не является владельцем события c id = %s",
+                    userId, eventId));
         }
         EventFullDto eventFullDto = eventMapper.toEventFullDto(event);
         eventFullDto.setInitiator(initiator);
@@ -88,7 +89,8 @@ public class EventServicePrivateImpl extends BaseEventService implements EventSe
                 .orElseThrow(() -> new NotFoundException("Событие с ID=" + eventId + " не найдено"));
         UserShortDto initiator = userFeignClient.getUserShortById(event.getInitiatorId());
         if (!initiator.getId().equals(userId)) {
-            throw new ConflictException("Пользователь " + userId + " не является владельцем события " + eventId);
+            throw new ConflictException(String.format("Пользователь с id = %s не является владельцем события c id = %s",
+                    userId, eventId));
         }
         if (event.getState() != EventState.PENDING && event.getState() != EventState.CANCELED) {
             throw new ConflictException("Можно обновлять только события в состоянии PENDING или CANCELED");

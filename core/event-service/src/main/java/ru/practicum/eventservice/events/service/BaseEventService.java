@@ -26,6 +26,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static ru.practicum.interaction.util.ConstantsUtil.DATE_TIME_PATTERN;
+
 @RequiredArgsConstructor
 public abstract class BaseEventService {
 
@@ -35,7 +37,7 @@ public abstract class BaseEventService {
     protected final StatRestClient statRestClient;
     protected final RequestFeignClient requestFeignClient;
     protected final UserFeignClient userFeignClient;
-    protected final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    protected final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
 
     protected List<EventShortDto> fetchEventsWithStats(BooleanExpression queryExpression, Pageable pageRequest) {
         List<EventShortDto> events = fetchEvents(queryExpression, pageRequest);

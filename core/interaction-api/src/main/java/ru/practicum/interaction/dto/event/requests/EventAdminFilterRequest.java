@@ -9,6 +9,8 @@ import ru.practicum.interaction.dto.event.enums.EventState;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static ru.practicum.interaction.util.ConstantsUtil.DATE_TIME_PATTERN;
+
 /**
  * Filter criteria for admin event searches.
  *
@@ -28,9 +30,9 @@ public class EventAdminFilterRequest {
 
     List<Long> categories;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = DATE_TIME_PATTERN)
     LocalDateTime rangeStart;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = DATE_TIME_PATTERN)
     LocalDateTime rangeEnd;
 }

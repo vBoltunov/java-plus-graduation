@@ -10,6 +10,8 @@ import ru.practicum.interaction.dto.user.UserShortDto;
 
 import java.time.LocalDateTime;
 
+import static ru.practicum.interaction.util.ConstantsUtil.DATE_TIME_PATTERN;
+
 /**
  * DTO representing full details of an event.
  *
@@ -42,7 +44,7 @@ public class EventFullDto implements EventDto {
 
     String title;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_TIME_PATTERN)
     LocalDateTime eventDate;
 
     String description;
@@ -51,10 +53,10 @@ public class EventFullDto implements EventDto {
 
     int participantLimit;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_TIME_PATTERN)
     LocalDateTime publishedOn;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_TIME_PATTERN)
     LocalDateTime createdOn;
 
     CategoryDto category;

@@ -17,10 +17,10 @@ import ru.practicum.subscriptionservice.service.SubscriptionService;
 
 import java.util.Set;
 
-import static ru.practicum.interaction.util.PathConstants.PATH_TO_SUBSCRIPTION;
-import static ru.practicum.interaction.util.PathConstants.PATH_TO_USER;
-import static ru.practicum.interaction.util.PathConstants.SUBSCRIBERS;
-import static ru.practicum.interaction.util.PathConstants.SUBSCRIPTIONS;
+import static ru.practicum.interaction.util.ConstantsUtil.PATH_TO_SUBSCRIPTION;
+import static ru.practicum.interaction.util.ConstantsUtil.PATH_TO_USER;
+import static ru.practicum.interaction.util.ConstantsUtil.SUBSCRIBERS;
+import static ru.practicum.interaction.util.ConstantsUtil.SUBSCRIPTIONS;
 
 @RestController
 @RequestMapping(PATH_TO_USER)

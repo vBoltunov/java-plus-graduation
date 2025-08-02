@@ -42,7 +42,7 @@ public class CompilationServicePublicImpl implements CompilationServicePublic {
         Optional<Compilation> compilationOptional = compilationRepository.findById(compId);
 
         if (compilationOptional.isEmpty()) {
-            throw new NotFoundException("Подборка с ID=" + compId + " не найдена");
+            throw new NotFoundException(String.format("Подборка с id = %s не найдена", compId));
         }
         CompilationDtoResponse compilationDto = compilationMapper.toCompilationDto(compilationOptional.get());
 

@@ -1,8 +1,8 @@
 package ru.practicum.interaction.util;
 
 @SuppressWarnings("squid:S1075")
-public class PathConstants {
-    private PathConstants() {
+public class ConstantsUtil {
+    private ConstantsUtil() {
         throw new AssertionError("Utility class should not be instantiated");
     }
 
@@ -48,4 +48,6 @@ public class PathConstants {
 
     public static final String EVENTS_FEIGN = "/events/feign";
     public static final String EVENT_ID_USER_ID = EVENT_ID + USER_ID;
+
+    public static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 }

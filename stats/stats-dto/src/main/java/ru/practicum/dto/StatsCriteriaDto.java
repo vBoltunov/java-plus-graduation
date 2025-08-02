@@ -10,6 +10,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static ru.practicum.util.ConstantsUtil.DATE_TIME_PATTERN;
+
 /**
  * DTO for passing search/filter criteria for statistics queries.
  *
@@ -24,10 +26,10 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class StatsCriteriaDto {
     @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = DATE_TIME_PATTERN)
     LocalDateTime start;
     @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = DATE_TIME_PATTERN)
     LocalDateTime end;
     List<String> uris;
     Boolean unique;

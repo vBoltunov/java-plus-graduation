@@ -33,39 +33,6 @@ public class StatServiceImpl implements StatService {
         log.info("Статистика {} сохранена в базу данных", hit);
     }
 
-    /*@Override
-    @Transactional(readOnly = true)
-    public List<StatsDto> getStats(StatsCriteriaDto params) {
-        if (params.getUnique() == null) {
-            params.setUnique(false);
-        }
-        if (params.getStart().isAfter(LocalDateTime.now())) {
-            throw new ValidationException("Время начала не может быть в прошлом");
-        }
-
-        List<StatsDto> statsToReturn;
-
-        boolean paramsIsNotExists = params.getUris() == null || params.getUris().isEmpty();
-
-        if (!params.getUnique()) {
-            if (paramsIsNotExists) {
-                statsToReturn = hitRepository.getAllStats(params.getStart(), params.getEnd());
-            } else {
-                statsToReturn = hitRepository.getStats(params.getUris(), params.getStart(), params.getEnd());
-            }
-        } else {
-            if (paramsIsNotExists) {
-                statsToReturn = hitRepository.getAllStatsUniqueIp(params.getStart(), params.getEnd());
-            } else {
-                statsToReturn = hitRepository.getStatsUniqueIp(params.getUris(), params.getStart(), params.getEnd());
-            }
-        }
-
-        log.info("Статистика {} получена из базы данных", statsToReturn);
-        return statsToReturn;
-
-    }*/
-
     @Override
     @Transactional(readOnly = true)
     public List<StatsDto> getStats(StatsCriteriaDto params) {

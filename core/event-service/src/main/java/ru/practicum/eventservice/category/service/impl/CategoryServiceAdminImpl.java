@@ -28,7 +28,7 @@ public class CategoryServiceAdminImpl implements CategoryServiceAdmin {
     @Transactional
     public CategoryDto createCategoryAdmin(CategoryDtoNew categoryDtoNew) {
         if (categoryRepository.existsByName(categoryDtoNew.getName())) {
-            throw new ConflictException("Категория с именем '" + categoryDtoNew.getName() + "' уже существует.");
+            throw new ConflictException(String.format("Категория с именем %s уже существует.", categoryDtoNew.getName()));
         }
         log.info("Создание новой категории админом {}.", categoryDtoNew);
         return categoryMapper.toCategoryDto(categoryRepository.save(categoryMapper.toCategory(categoryDtoNew)));
@@ -42,7 +42,7 @@ public class CategoryServiceAdminImpl implements CategoryServiceAdmin {
         }
         Optional<Category> existingCategory = categoryRepository.findByName(categoryDtoNew.getName());
         if (existingCategory.isPresent() && !existingCategory.get().getId().equals(catId)) {
-            throw new ConflictException("Категория с именем '" + categoryDtoNew.getName() + "' уже существует.");
+            throw new ConflictException(String.format("Категория с именем '%s' уже существует.", categoryDtoNew.getName()));
         }
         Category category = categoryMapper.toCategory(categoryDtoNew);
         category.setId(catId);
@@ -54,7 +54,7 @@ public class CategoryServiceAdminImpl implements CategoryServiceAdmin {
     @Transactional
     public void deleteCategoryAdmin(Long catId) {
         categoryRepository.findById(catId)
-                .orElseThrow(() -> new NotFoundException("Не найдено событий для категории с id" + catId));
+                .orElseThrow(() -> new NotFoundException(String.format("Не найдено событий для категории с id = %s", catId)));
         if (eventRepository.existsByCategoryId(catId)) {
             throw new ConflictException("Невозможно удалить. В категории содержатся события.");
         }

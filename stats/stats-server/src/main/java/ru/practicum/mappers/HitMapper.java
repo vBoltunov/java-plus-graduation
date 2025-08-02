@@ -9,10 +9,12 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static ru.practicum.util.ConstantsUtil.DATE_TIME_PATTERN;
+
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class HitMapper {
-    final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
 
     public Hit mapToEndpointHit(HitDto dto) {
         Hit hit = new Hit();

@@ -9,6 +9,8 @@ import ru.practicum.interaction.dto.event.validators.StartAndEndValid;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static ru.practicum.interaction.util.ConstantsUtil.DATE_TIME_PATTERN;
+
 /**
  * Filter criteria for public event searches.
  *
@@ -31,10 +33,10 @@ public class EventPublicFilterRequest {
 
     Boolean paid;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = DATE_TIME_PATTERN)
     LocalDateTime rangeStart;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = DATE_TIME_PATTERN)
     LocalDateTime rangeEnd;
 
     boolean onlyAvailable;

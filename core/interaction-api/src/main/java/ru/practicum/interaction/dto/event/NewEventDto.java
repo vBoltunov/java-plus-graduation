@@ -10,6 +10,8 @@ import ru.practicum.interaction.dto.event.validators.EventDateInTwoHours;
 
 import java.time.LocalDateTime;
 
+import static ru.practicum.interaction.util.ConstantsUtil.DATE_TIME_PATTERN;
+
 /**
  * DTO for a new event creation.
  *
@@ -37,7 +39,7 @@ public class NewEventDto {
     @Size(min = 3, max = 120)
     String title;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_TIME_PATTERN)
     @EventDateInTwoHours
     LocalDateTime eventDate;
 

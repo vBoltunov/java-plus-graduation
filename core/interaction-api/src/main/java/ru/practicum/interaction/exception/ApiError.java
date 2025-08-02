@@ -10,6 +10,8 @@ import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
 
+import static ru.practicum.interaction.util.ConstantsUtil.DATE_TIME_PATTERN;
+
 @Builder
 @Getter
 @NoArgsConstructor
@@ -21,6 +23,6 @@ public class ApiError {
     String reason;
     String status;
     @Builder.Default
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = DATE_TIME_PATTERN)
     LocalDateTime timestamp = LocalDateTime.now();
 }

@@ -7,9 +7,9 @@ import ru.practicum.eventservice.events.service.EventServiceFeign;
 import ru.practicum.interaction.dto.event.EventFullDto;
 import ru.practicum.interaction.feign.EventFeignClient;
 
-import static ru.practicum.interaction.util.PathConstants.EVENTS_FEIGN;
-import static ru.practicum.interaction.util.PathConstants.EVENT_ID;
-import static ru.practicum.interaction.util.PathConstants.EVENT_ID_USER_ID;
+import static ru.practicum.interaction.util.ConstantsUtil.EVENTS_FEIGN;
+import static ru.practicum.interaction.util.ConstantsUtil.EVENT_ID;
+import static ru.practicum.interaction.util.ConstantsUtil.EVENT_ID_USER_ID;
 
 @Slf4j
 @RestController

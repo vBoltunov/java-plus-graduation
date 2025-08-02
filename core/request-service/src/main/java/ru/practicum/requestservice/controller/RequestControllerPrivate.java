@@ -21,9 +21,9 @@ import ru.practicum.requestservice.service.RequestService;
 
 import java.util.List;
 
-import static ru.practicum.interaction.util.PathConstants.PRIVATE_EVENT_REQUESTS;
-import static ru.practicum.interaction.util.PathConstants.PRIVATE_REQUESTS;
-import static ru.practicum.interaction.util.PathConstants.PRIVATE_REQUEST_CANCEL;
+import static ru.practicum.interaction.util.ConstantsUtil.PRIVATE_EVENT_REQUESTS;
+import static ru.practicum.interaction.util.ConstantsUtil.PRIVATE_REQUESTS;
+import static ru.practicum.interaction.util.ConstantsUtil.PRIVATE_REQUEST_CANCEL;
 
 @RestController
 @RequestMapping
