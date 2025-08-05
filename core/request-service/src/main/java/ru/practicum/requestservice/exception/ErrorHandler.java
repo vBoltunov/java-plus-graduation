@@ -18,6 +18,8 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.time.LocalDateTime;
 
+import static ru.practicum.interaction.util.ConstantsUtil.LOG_FORMAT;
+
 @Slf4j
 @RestControllerAdvice
 public class ErrorHandler {
@@ -25,7 +27,7 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.CONFLICT)
     public ApiError handleDataIntegrityViolationException(Exception exception) {
         String cause = "Нарушение целостности данных";
-        log.info("{}: {}", cause, exception.getMessage());
+        log.info(LOG_FORMAT, cause, exception.getMessage());
         return ApiError.builder()
                 .message(exception.getMessage())
                 .reason(cause)
@@ -38,7 +40,7 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ApiError handleNotFoundException(NotFoundException exception) {
         String cause = "Ошибка при поиске данных";
-        log.info("{}: {}", cause, exception.getMessage());
+        log.info(LOG_FORMAT, cause, exception.getMessage());
         return ApiError.builder()
                 .message(exception.getMessage())
                 .reason(cause)
@@ -52,7 +54,7 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError handleValidationException(Exception exception) {
         String cause = "Ошибка при валидации данных";
-        log.info("{}: {}", cause, exception.getMessage());
+        log.info(LOG_FORMAT, cause, exception.getMessage());
         return ApiError.builder()
                 .message(exception.getMessage())
                 .reason(cause)

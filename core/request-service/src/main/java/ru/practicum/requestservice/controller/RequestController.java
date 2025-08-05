@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
+import static ru.practicum.interaction.util.ConstantsUtil.CHECK_REQUEST_EXIST;
 import static ru.practicum.interaction.util.ConstantsUtil.COUNT_EVENT_STATUS;
 import static ru.practicum.interaction.util.ConstantsUtil.REQUESTS;
 import static ru.practicum.interaction.util.ConstantsUtil.REQUEST_CONFIRMED;
@@ -34,5 +35,11 @@ public class RequestController implements RequestFeignClient {
     public Long countAllByEventIdAndStatus(@PathVariable Long eventId,
                                            @PathVariable String requestStatus) {
         return requestService.countAllByEventIdAndStatus(eventId, requestStatus);
+    }
+
+    @GetMapping(CHECK_REQUEST_EXIST)
+    public boolean isRequestExist(@PathVariable Long eventId,
+                                  @PathVariable Long userId) {
+        return requestService.isRequestExist(userId, eventId);
     }
 }

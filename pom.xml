@@ -33,6 +33,15 @@
 		<h2.version>2.2.224</h2.version>
 		<jakarta.validation.version>3.0.2</jakarta.validation.version>
 		<jakarta.persistence.version>3.1.0</jakarta.persistence.version>
+		<modelmapper.version>3.2.0</modelmapper.version>
+		<querydsl.version>5.1.0</querydsl.version>
+		<grpc-spring-boot-starter.version>3.1.0.RELEASE</grpc-spring-boot-starter.version>
+		<spring-kafka.version>3.2.4</spring-kafka.version>
+		<grpc.version>1.63.0</grpc.version>
+		<avro.version>1.11.3</avro.version>
+		<avro-maven-plugin.version>1.11.3</avro-maven-plugin.version>
+		<protobuf.version>3.23.4</protobuf.version>
+		<protobuf-plugin.version>2.4.0</protobuf-plugin.version>
 		<!-- Версии плагинов -->
 		<maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
 		<maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
@@ -100,6 +109,47 @@
 				<version>${h2.version}</version>
 				<scope>runtime</scope>
 			</dependency>
+			<dependency>
+				<groupId>org.modelmapper</groupId>
+				<artifactId>modelmapper</artifactId>
+				<version>${modelmapper.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.querydsl</groupId>
+				<artifactId>querydsl-jpa</artifactId>
+				<classifier>jakarta</classifier>
+				<version>${querydsl.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.devh</groupId>
+				<artifactId>grpc-server-spring-boot-starter</artifactId>
+				<version>${grpc-spring-boot-starter.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.devh</groupId>
+				<artifactId>grpc-client-spring-boot-starter</artifactId>
+				<version>${grpc-spring-boot-starter.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.kafka</groupId>
+				<artifactId>spring-kafka</artifactId>
+				<version>${spring-kafka.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.grpc</groupId>
+				<artifactId>grpc-protobuf</artifactId>
+				<version>${grpc.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.grpc</groupId>
+				<artifactId>grpc-stub</artifactId>
+				<version>${grpc.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.avro</groupId>
+				<artifactId>avro</artifactId>
+				<version>${avro.version}</version>
+			</dependency>
 			<!-- Spring Cloud -->
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
@@ -143,6 +193,16 @@
 							<spring.profiles.active>test</spring.profiles.active>
 						</systemPropertyVariables>
 					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>io.github.ascopes</groupId>
+					<artifactId>protobuf-maven-plugin</artifactId>
+					<version>${protobuf-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.avro</groupId>
+					<artifactId>avro-maven-plugin</artifactId>
+					<version>${avro-maven-plugin.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
