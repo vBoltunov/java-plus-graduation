@@ -2,11 +2,7 @@ package ru.practicum.eventservice.events.service.impl;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.client.StatRestClient;
+import ru.practicum.eventservice.category.model.Category;
 import ru.practicum.eventservice.events.mapper.EventMapper;
 import ru.practicum.eventservice.events.model.Event;
 import ru.practicum.eventservice.events.model.QEvent;
@@ -22,6 +18,10 @@ import ru.practicum.interaction.exception.ConflictException;
 import ru.practicum.interaction.exception.NotFoundException;
 import ru.practicum.interaction.feign.RequestFeignClient;
 import ru.practicum.interaction.feign.UserFeignClient;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,9 +31,9 @@ import java.util.List;
 public class EventServiceAdminImpl extends BaseEventService implements EventServiceAdmin {
 
     public EventServiceAdminImpl(EventRepository eventRepository, EventMapper eventMapper,
-                                 JPAQueryFactory jpaQueryFactory, StatRestClient statRestClient,
+                                 JPAQueryFactory jpaQueryFactory,
                                  RequestFeignClient requestFeignClient, UserFeignClient userFeignClient) {
-        super(eventRepository, eventMapper, jpaQueryFactory, statRestClient, requestFeignClient, userFeignClient);
+        super(eventRepository, eventMapper, jpaQueryFactory, requestFeignClient, userFeignClient);
     }
 
     @Override
@@ -41,7 +41,8 @@ public class EventServiceAdminImpl extends BaseEventService implements EventServ
         BooleanExpression queryExpression = buildAdminFilterExpression(filterCriteria);
         List<EventShortDto> events = fetchEvents(queryExpression, pageRequest);
         List<EventFullDto> fullEvents = events.stream()
-                .map(event -> eventMapper.toEventFullDto(eventRepository.findById(event.getId()).orElseThrow()))
+                .map(event -> eventMapper.toEventFullDto(
+                        eventRepository.findById(event.getId()).orElseThrow()))
                 .toList();
         enrichWithStats(fullEvents);
         log.info("Получены события для админа по параметрам");
@@ -53,12 +54,15 @@ public class EventServiceAdminImpl extends BaseEventService implements EventServ
     public EventFullDto updateEventById(Long eventId, UpdateEventAdminRequest dto) {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new NotFoundException(String.format("Событие с id = %s не найдено", eventId)));
+
         if (event.getState().equals(EventState.PUBLISHED) || event.getState().equals(EventState.CANCELED)) {
-            throw new ConflictException("Админ может обновлять только события в состоянии PENDING");
+            throw new ConflictException("Администратор может обновлять события только в состоянии ожидания публикации");
         }
-        eventRepository.save(eventMapper.toUpdatedEvent(event, dto, event.getCategory()));
+        Category category = event.getCategory();
+        eventRepository.save(eventMapper.toUpdatedEvent(event, dto, category));
         EventFullDto eventFullDto = eventMapper.toEventFullDto(event);
-        log.info("Обновлено событие {} админом", eventId);
+
+        log.info("Обновлено событие {} с id {} админом", eventFullDto, eventId);
         return eventFullDto;
     }
 

@@ -36,8 +36,8 @@ public class CompilationControllerPublic {
 
     @GetMapping
     public ResponseEntity<List<CompilationDtoResponse>> getAll(@RequestParam(required = false) Boolean pinned,
-                                                       @PositiveOrZero @RequestParam(defaultValue = "0") int from,
-                                                       @Positive @RequestParam(defaultValue = "10") int size) {
+                                                               @PositiveOrZero @RequestParam(defaultValue = "0") int from,
+                                                               @Positive @RequestParam(defaultValue = "10") int size) {
         log.info("GET /compilations - Запрос на получение(public) подборок с параметрами " +
                 "pinned = {}, from = {}, size = {}.", pinned, from, size);
         return new ResponseEntity<>(compilationServicePublic.getAllCompilationsPublic(pinned, PageRequest.of(from, size)

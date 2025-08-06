@@ -14,6 +14,7 @@ public class ConstantsUtil {
     public static final String REQUESTS = "/requests";
     public static final String SUBSCRIPTIONS = "/subscriptions";
     public static final String SUBSCRIBERS = "/subscribers";
+    public static final String RECOMMENDATIONS = "/recommendations";
 
     public static final String CANCEL = "/cancel";
 
@@ -40,7 +41,6 @@ public class ConstantsUtil {
     public static final String SHORT_DTO_PATH = "/short";
     public static final String USER_SHORT_DTO = USER_ID + SHORT_DTO_PATH;
 
-
     public static final String REQUEST_CONFIRMED = REQUESTS + "/confirmed";
     public static final String COUNT = "/count";
     public static final String REQUEST_STATUS = "/{requestStatus}";
@@ -48,6 +48,10 @@ public class ConstantsUtil {
 
     public static final String EVENTS_FEIGN = "/events/feign";
     public static final String EVENT_ID_USER_ID = EVENT_ID + USER_ID;
+    public static final String EVENT_LIKE = EVENT_ID  + "/like";
+    public static final String CHECK_REQUEST_EXIST =  "/exist" + EVENT_ID_USER_ID;
 
     public static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+
+    public static final String LOG_FORMAT = "{}: {}";
 }
