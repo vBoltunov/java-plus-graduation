@@ -41,7 +41,7 @@ public class CompilationControllerAdmin {
     @PatchMapping(COMPILATION_ID)
     @ResponseStatus(HttpStatus.OK)
     public CompilationDtoResponse update(@PathVariable("compId") Long compId,
-                                 @Valid @RequestBody CompilationDtoUpdate compilationDtoUpdate) {
+                                         @Valid @RequestBody CompilationDtoUpdate compilationDtoUpdate) {
         log.info("PATCH /admin/compilations/{} - Запрос на обновление админом подборки на {}.",
                 compId, compilationDtoUpdate);
         return compilationServiceAdmin.updateCompilationAdmin(compId, compilationDtoUpdate);

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.Map;
 
+import static ru.practicum.interaction.util.ConstantsUtil.CHECK_REQUEST_EXIST;
 import static ru.practicum.interaction.util.ConstantsUtil.COUNT_EVENT_STATUS;
 import static ru.practicum.interaction.util.ConstantsUtil.REQUESTS;
 import static ru.practicum.interaction.util.ConstantsUtil.REQUEST_CONFIRMED;
@@ -20,4 +21,8 @@ public interface RequestFeignClient {
     @GetMapping(COUNT_EVENT_STATUS)
     Long countAllByEventIdAndStatus(@PathVariable Long eventId,
                                       @PathVariable String requestStatus);
+
+    @GetMapping(CHECK_REQUEST_EXIST)
+    boolean isRequestExist(@PathVariable Long eventId,
+                           @PathVariable Long userId);
 }

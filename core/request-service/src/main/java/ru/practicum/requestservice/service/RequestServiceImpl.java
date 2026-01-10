@@ -242,4 +242,9 @@ public class RequestServiceImpl implements RequestService {
             throw new ForbiddenOperationException("Доступ только для инициатора события");
         }
     }
+
+    @Override
+    public boolean isRequestExist(Long userId, Long eventId) {
+        return requestRepository.existsByRequesterIdAndEventId(userId, eventId);
+    }
 }

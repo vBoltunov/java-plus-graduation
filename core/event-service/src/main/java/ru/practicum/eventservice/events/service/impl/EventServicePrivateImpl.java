@@ -2,11 +2,6 @@ package ru.practicum.eventservice.events.service.impl;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.client.StatRestClient;
 import ru.practicum.eventservice.category.mapper.CategoryMapper;
 import ru.practicum.eventservice.category.model.Category;
 import ru.practicum.eventservice.category.service.CategoryServicePublic;
@@ -16,9 +11,7 @@ import ru.practicum.eventservice.events.model.QEvent;
 import ru.practicum.eventservice.events.repository.EventRepository;
 import ru.practicum.eventservice.events.service.BaseEventService;
 import ru.practicum.eventservice.events.service.EventServicePrivate;
-import ru.practicum.interaction.dto.event.EventFullDto;
-import ru.practicum.interaction.dto.event.EventShortDto;
-import ru.practicum.interaction.dto.event.NewEventDto;
+import ru.practicum.interaction.dto.event.*;
 import ru.practicum.interaction.dto.event.enums.EventState;
 import ru.practicum.interaction.dto.event.requests.UpdateEventUserRequest;
 import ru.practicum.interaction.dto.user.UserShortDto;
@@ -26,19 +19,26 @@ import ru.practicum.interaction.exception.ConflictException;
 import ru.practicum.interaction.exception.NotFoundException;
 import ru.practicum.interaction.feign.RequestFeignClient;
 import ru.practicum.interaction.feign.UserFeignClient;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Slf4j
 @Service
 @Transactional(readOnly = true)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class EventServicePrivateImpl extends BaseEventService implements EventServicePrivate {
 
     public EventServicePrivateImpl(EventRepository eventRepository, EventMapper eventMapper,
-                                   JPAQueryFactory jpaQueryFactory, StatRestClient statRestClient,
+                                   JPAQueryFactory jpaQueryFactory,
                                    RequestFeignClient requestFeignClient, UserFeignClient userFeignClient,
                                    CategoryServicePublic categoryService, CategoryMapper categoryMapper) {
-        super(eventRepository, eventMapper, jpaQueryFactory, statRestClient, requestFeignClient, userFeignClient);
+        super(eventRepository, eventMapper, jpaQueryFactory, requestFeignClient, userFeignClient);
         this.categoryService = categoryService;
         this.categoryMapper = categoryMapper;
     }
@@ -50,13 +50,9 @@ public class EventServicePrivateImpl extends BaseEventService implements EventSe
     public EventFullDto getEvent(Long userId, Long eventId) {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new NotFoundException(String.format("Событие с id = %s не найдено", eventId)));
-        UserShortDto initiator = userFeignClient.getUserShortById(event.getInitiatorId());
-        if (!initiator.getId().equals(userId)) {
-            throw new ConflictException(String.format("Пользователь с id = %s не является владельцем события c id = %s",
-                    userId, eventId));
-        }
+        validateEventOwnership(userId, event);
         EventFullDto eventFullDto = eventMapper.toEventFullDto(event);
-        eventFullDto.setInitiator(initiator);
+        eventFullDto.setInitiator(getEventInitiator(event));
         log.info("Получено событие {} для пользователя {}", eventId, userId);
         return eventFullDto;
     }
@@ -70,7 +66,8 @@ public class EventServicePrivateImpl extends BaseEventService implements EventSe
         eventRepository.save(event);
         EventFullDto eventFullDto = eventMapper.toEventFullDto(event);
         eventFullDto.setInitiator(initiator);
-        log.info("Создано событие пользователем {}", userId);
+
+        log.info("Создано событие {} пользователем с id {}", eventFullDto, userId);
         return eventFullDto;
     }
 
@@ -86,12 +83,8 @@ public class EventServicePrivateImpl extends BaseEventService implements EventSe
     @Transactional
     public EventFullDto updateEvent(Long userId, Long eventId, UpdateEventUserRequest updateRequest) {
         Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new NotFoundException("Событие с ID=" + eventId + " не найдено"));
-        UserShortDto initiator = userFeignClient.getUserShortById(event.getInitiatorId());
-        if (!initiator.getId().equals(userId)) {
-            throw new ConflictException(String.format("Пользователь с id = %s не является владельцем события c id = %s",
-                    userId, eventId));
-        }
+                .orElseThrow(() -> new NotFoundException(String.format("Событие с id = %s не найдено", eventId)));
+        validateEventOwnership(userId, event);
         if (event.getState() != EventState.PENDING && event.getState() != EventState.CANCELED) {
             throw new ConflictException("Можно обновлять только события в состоянии PENDING или CANCELED");
         }
@@ -99,7 +92,7 @@ public class EventServicePrivateImpl extends BaseEventService implements EventSe
         Event updatedEvent = eventMapper.toUpdatedEvent(event, updateRequest, category);
         Event savedEvent = eventRepository.save(updatedEvent);
         EventFullDto eventFullDto = eventMapper.toEventFullDto(savedEvent);
-        eventFullDto.setInitiator(initiator);
+        eventFullDto.setInitiator(getEventInitiator(event));
         log.info("Обновлено событие {} пользователем {}", eventId, userId);
         return eventFullDto;
     }

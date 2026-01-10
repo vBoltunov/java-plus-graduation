@@ -53,7 +53,7 @@ public class CompilationServiceAdminImpl implements CompilationServiceAdmin {
         List<Event> events = eventRepository.findAllByIdIn(compilationDtoUpdate.getEvents());
 
         CompilationDtoResponse compilationDto = compilationMapper.toCompilationDto(compilationRepository
-                .save(compilationMapper.toUpdateCompilation(compilation, compilationDtoUpdate, events)));
+                .save(compilationMapper.toUpdatedCompilation(compilation, compilationDtoUpdate, events)));
 
         log.info("Обновлена подборка с id {} на {}", compId, compilationDto);
         return compilationDto;

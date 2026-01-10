@@ -69,5 +69,5 @@ public class EventFullDto implements EventDto {
 
     Long confirmedRequests;
 
-    Long views;
+    double rating;
 }

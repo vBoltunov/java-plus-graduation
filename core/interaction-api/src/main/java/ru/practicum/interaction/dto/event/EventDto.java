@@ -16,7 +16,5 @@ public interface EventDto {
 
     LocalDateTime getEventDate();
 
-    void setViews(Long views);
-
     void setConfirmedRequests(Long confirmedRequests);
 }

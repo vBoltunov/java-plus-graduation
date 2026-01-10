@@ -38,5 +38,5 @@ public class EventShortDto implements EventDto {
     CategoryDto category;
     UserShortDto initiator;
     Long confirmedRequests;
-    Long views;
+    double rating;
 }
